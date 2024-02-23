@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
@@ -94,15 +93,19 @@ function EditorHeader() {
   )
 }
 
-function Editor() {
+function Editor({ sampleValue }) {
+  function handleTextAreaChange(e) {
+    // setText(e.target.value);
+    console.log(e.target.value);
+  }
+
   return (
     <div>
       <EditorHeader />
-      <textArea 
+      <textarea 
         style={editorStyles}
-        value={text}
-      >
-      </textArea>
+        value={sampleValue} 
+        onChange={handleTextAreaChange} />
     </div>
   )
 }
@@ -113,32 +116,31 @@ function PreviewerHeader() {
   )
 }
 
-function Previewer() {
+function Previewer({ markdown }) {
   return (
     <div>
       <PreviewerHeader />
-      <textArea style={previewerStyles}>
-
-      </textArea>
+      <textarea 
+        style={previewerStyles} 
+        defaultValue={markdown} />
     </div>
   )
 }
 
 function App() {
-  const [text, setText] = useState('')
+  const [text, setText] = useState(sampleText)
 
-  function handleTextAreaChange(e) {
-    setText = e.target.value
-    console.log(setText)
-  }
+
 
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app">
+      <header className="app-header">
         <Editor 
-          onChange={handleTextAreaChange} />
-        <Previewer />
+          sampleValue={text}
+          // onChange={handleTextAreaChange} 
+           />
+        <Previewer markdown={text} />
 
       </header>
     </div>
